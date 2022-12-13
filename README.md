@@ -1,24 +1,68 @@
-# README
+# Wildlife Tracker Challenge
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The Forest Service is considering a proposal to place in conservancy a forest of virgin Douglas fir just outside of Portland, Oregon. Before they give the go ahead, they need to do an environmental impact study. They've asked you to build an API the rangers can use to report wildlife sightings.
 
-Things you may want to cover:
+---
 
-* Ruby version
+Story 1: In order to track wildlife sightings, as a user of the API, I need to manage animals.
 
-* System dependencies
+Branch: animal-crud-actions
 
-* Configuration
+Acceptance Criteria
 
-* Database creation
+(1)Create a resource for animal with the following information:
+$ rails db:create
+-Created database 'wild_life_development'
+-Created database 'wild_life_test'
 
-* Database initialization
+(2)common name and scientific binomial
+$ rails g resource Animal common_name:string scientific_binomial
 
-* How to run the test suite
+(3)Can see the data response of all the animals
 
-* Services (job queues, cache servers, search engines, etc.)
+```ruby
+def index
+    animals = Animal.all
+    render json: animals
+  end
+```
 
-* Deployment instructions
+(4)Can create a new animal in the database
 
-* ...
+```ruby
+def create
+  animal = Animal.create(animal_params)
+  if animal.valid?
+    render json:animal
+  else
+    render json:animal.errors
+  end
+end
+```
+
+(5)Can update an existing animal in the database
+
+```ruby
+def update
+  animal = Animal.find(params[:id])
+  animal.update(animal_params)
+  if animal.valid?
+    render json:animal
+  else
+    render json:animal.errors
+  end
+end
+```
+
+(6)Can remove an animal entry in the database
+
+```ruby
+def destroy
+  animal = Animal.find(params[:id])
+  if animal.destroy
+    render json:animal
+  else
+    render json:animal.errors
+  end
+end
+```
