@@ -121,3 +121,35 @@ def update
 ```
 
 \*-----------------------------------------------------------
+
+Story 3: In order to see the wildlife sightings, as a user of the API, I need to run reports on animal sightings.
+
+Branch: animal-sightings-reports
+
+Acceptance Criteria
+
+(1)Can see one animal with all its associated sightings
+
+```ruby
+ def show
+    animal = Animal.find(params[:id])
+    render json:animal, include: [:trackers]
+  end
+
+```
+
+(2)Can see all the sightings during a given time period
+
+```ruby
+    def index
+      trackers = Tracker.where(date: params[:start_date]..params[:end_date])
+      render json: trackers
+    end
+```
+
+```ruby
+  private
+  def tracker_params
+    params.require(:tracker).permit(:start_date, :end_date, :latitude, :longitude, :date, :animal_id)
+  end
+```

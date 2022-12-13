@@ -1,11 +1,11 @@
 class TrackersController < ApplicationController
     def index
-      trackers = Tracker.all 
+      trackers = Tracker.where(date: params[:start_date]..params[:end_date]) 
       render json: trackers
     end
 
   def show
-    tracker = Tracker.find(params[:id])
+    tracker = Tracker.find(id: params[:id])
     render json:tracker
   end
 
@@ -38,6 +38,6 @@ class TrackersController < ApplicationController
 
   private
   def tracker_params
-    params.require(:tracker).permit(:latitude, :longitude, :date, :animal_id)
+    params.require(:tracker).permit(:start_date, :end_date, :latitude, :longitude, :date, :animal_id)
   end
 end
