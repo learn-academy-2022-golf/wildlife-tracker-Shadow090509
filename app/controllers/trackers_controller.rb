@@ -1,6 +1,6 @@
 class TrackersController < ApplicationController
     def index
-      trackers = Tracker.all 
+      trackers = Tracker.where(date: params[:start_date]..params[:end_date])
       render json: trackers
     end
 
