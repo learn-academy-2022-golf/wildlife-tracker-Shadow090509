@@ -128,9 +128,22 @@ Branch: animal-sightings-specs
 Acceptance Criteria
 Validations will require specs in spec/models and the controller methods will require specs in spec/requests.
 
-Can see validation errors if an animal doesn't include a common name and scientific binomial
-Can see validation errors if a sighting doesn't include latitude, longitude, or a date
-Can see a validation error if an animal's common name exactly matches the scientific binomial
-Can see a validation error if the animal's common name and scientific binomial are not unique
-Can see a status code of 422 when a post request can not be completed because of validation errors
-Hint: Handling Errors in an API Application the Rails Way
+(1)Can see validation errors if an animal doesn't include a common name and scientific binomial- 422:Unprocessable Entity
+{
+"common_name": [
+"can't be blank",
+"can't be the same as scientific_binomial"
+],
+"scientific_binomial": [
+"can't be blank"
+]
+}
+(2)Can see validation errors if a sighting doesn't include latitude, longitude, or a date
+(3)Can see a validation error if an animal's common name exactly matches the scientific binomial- 422:Unprocessable Entity
+{
+"common_name": [
+"can't be the same as scientific_binomial"
+]
+}
+(4)Can see a validation error if the animal's common name and scientific binomial are not unique
+(5)Can see a status code of 422 when a post request can not be completed because of validation errors- 422:Unprocessable Entity
